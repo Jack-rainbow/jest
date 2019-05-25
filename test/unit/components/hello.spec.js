@@ -1,6 +1,8 @@
-let hello = require('./node_modules/hello.js.js')
+let hello = require('@/views/hello.js')
 
-test('should get "Hello world"', () => {
-  expect(hello()).toBe('Hello world') // 测试成功
-  // expect(hello()).toBe('Hello') // 测试失败
+test('should get "Hello world"', (done) => {
+  hello('world', (result) => {
+    expect(result).toBe('Hello world')
+    done()
+  })
 })
