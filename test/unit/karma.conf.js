@@ -6,7 +6,7 @@ module.exports = function (config) {
     // 浏览器
     browsers: ['ChromeHeadless'],
      // 测试框架
-    frameworks: ['mocha'],
+    frameworks: ['mocha','sinon-chai'],
     // 测试报告
     reporters: ['spec', 'coverage'],
     // 测试入口文件
