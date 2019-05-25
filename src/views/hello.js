@@ -1,1 +1,4 @@
-module.exports = (name, cb) => setTimeout(() => cb(`Hello ${name}`), 1000)
+function addNum(a, b) {
+  return a + b;
+}
+module.exports = addNum;
