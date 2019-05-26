@@ -1,20 +1,22 @@
 <template>
-  <div class="hello">
-    <h1 class="hello-title">{{ msg }}</h1>
-    <h2 class="hello-content">{{ content }}</h2>
+  <div>
+    {{ count }}
+    <button @click="increment">Increment</button>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'hello',
-  props: {
-    content: String
-  },
-  data () {
-    return {
-      msg: 'Welcome!'
+  export default {
+    data() {
+      return {
+        count: 0
+      }
+    },
+
+    methods: {
+      increment() { 
+        this.count++
+      }
     }
   }
-}
 </script>

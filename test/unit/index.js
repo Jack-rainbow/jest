@@ -4,5 +4,5 @@ const testsContext = require.context('./components', true, /\.spec$/);
 testsContext.keys().forEach(testsContext);
 
 
-const srcContext = require.context('../../src/views/test', true, /\.vue$/)
-srcContext.keys().forEach(srcContext)
+// const srcContext = require.context('../../src/views/test', true, /\.vue$/)
+// srcContext.keys().forEach(srcContext)

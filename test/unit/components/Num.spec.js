@@ -1,20 +1,10 @@
-import {
-  destroyVM,
-  createTest
-} from '../util'
-import Hello  from '../../../src/views/test/index'
-describe('Hello.vue', () => {
-  let vm
+import { expect } from 'chai'
+import { shallowMount } from '@vue/test-utils'
+import Counter from '../../../src/views/test/index'
 
-  afterEach(() => {
-    destroyVM(vm)
+describe('Counter.vue', () => {
+  it('clicked', () => {
+    const wrapper = shallowMount(Counter)
+    expect(wrapper.find('div').text()).contains('1')
   })
-  it('测试获取元素内容', () => {
-    vm = createTest(Hello, {
-      content: 'Hello World'
-    }, true)
-    expect(vm.$el.querySelector('.hello h1').textContent).to.equal('Welcome!')
-    expect(vm.$el.querySelector('.hello h2').textContent).to.have.be.equal('Hello World')
-  })
-
 })
