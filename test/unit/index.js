@@ -1,5 +1,4 @@
 require('../../node_modules/babel-regenerator-runtime');
 
-const testsContext = require.context('./components', true, /\.spec$/);
-console.log(testsContext)
+const testsContext = require.context('./spec', true, /\.spec$/);
 testsContext.keys().forEach(testsContext);
