@@ -1,16 +1,15 @@
 
-
-var webpackConfig = require('./webpack.test.conf')
+var webpack = require('webpack');
 module.exports = function (config) {
-  const configuration = {
+  config.set({
     //默认路径
     // basePath:'../../src/views',
     // 浏览器
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
      // 测试框架
     frameworks: ['mocha','sinon-chai'],
     // 测试报告
-    reporters: ['spec'],
+    reporters: ['spec', 'coverage'],
     // 测试入口文件
     files: ['./index.js'],
     // 预处理器 karma-webpack
@@ -18,21 +17,40 @@ module.exports = function (config) {
       './index.js': ['webpack']
     },
     // 要从加载的文件中排除的文件/模式列表。
-    exclude: [
-      '../../src/views/README.md'
-    ],
-    webpack:webpackConfig,
-    webpackMiddleware: {
-      noInfo: true
+    // exclude: [
+    //   '../../src/views/README.md'
+    // ],
+    webpack: {
+      module: {
+        loaders: [{
+            test: /\.js$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: 'babel-loader'
+          },
+          {
+            test: /\.vue$/,
+            loader: 'vue-loader'
+          }
+        ]
+      },
+      vue: {
+        loaders: {
+          js: 'isparta-loader'
+        }
+      },
+      isparta: {
+        embedSource: true,
+        noAutoWrap: true,
+        // these babel options will be passed only to isparta and not to babel-loader
+        babel: {
+          presets: ['es2015']
+        }
+      },
     },
-    //配置日志级别
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    // logLevel: config.LOG_INFO,
-     // 测试覆盖率报告
-     // https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md
     coverageReporter: {
-      dir: './coverage',
-      reporters: [{
+      dir: 'coverage',
+      reporters: [
+        {
           type: 'lcov',
           subdir: '.'
         },
@@ -43,12 +61,5 @@ module.exports = function (config) {
     },
     port: 9999,
     autoWatch: true,
-    client: {
-      mocha: {
-        timeout: 4000
-      }
-    }
-  };
-
-  config.set(configuration);
+  });
 };

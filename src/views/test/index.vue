@@ -1,22 +1,11 @@
 <template>
-  <div>
-    {{ count }}
-    <button @click="increment">Increment</button>
-  </div>
+    <div>
+        <div>{{message}}</div>
+    </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        count: 0
-      }
-    },
-
-    methods: {
-      increment() { 
-        this.count++
-      }
+    export default {
+        props: ['message']
     }
-  }
 </script>

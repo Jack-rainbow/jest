@@ -1,13 +1,18 @@
 {
   "presets": [
-    ["env", { "modules": false }],
+    ["env", {
+      "modules": false
+    }]
   ],
-  "plugins": ["transform-runtime"],
-  "comments": false,
   "env": {
     "test": {
-      "presets": ["env"],
-      "plugins": [ "istanbul" ]
+      "presets": [
+        ["env", {
+          "targets": {
+            "node": "current"
+          }
+        }]
+      ]
     }
   }
 }
