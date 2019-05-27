@@ -10,29 +10,35 @@ if (!process.argv[2]) {
 }
 
 // 获取参数
-const [, pagename, pagedesc] = process.argv
 
 const path = require('path')
 const fileSave = require('file-save')
+
+// 判断是否是 .vue 结尾
+const isVueFile = name => name.endsWith('.vue')
+
 // 假设用户输入格式 a/b/c-d.vue 总是取最后的 用户如果输入 a\b\c.vue 处理不了...
-const className = pagedesc.split(/\/|\\/).slice(-1)[0]
+const [, , pagename, pagedesc] = process.argv
+let className = (pagename.split(/\/|\\/).slice(-1)[0] || '').replace('.vue', '')
+
 const srcPath = path.resolve(__dirname, '../src')
+const fileEnd = isVueFile(pagename) ? '' : '/index.vue'
 
-const Files = [
-  {
-    filename: `pages/${pagename}/index.vue`,
+const Files = [{
+    filename: `pages/${pagename}/${fileEnd}`,
     content: `<script>
- ${pagedesc ?
-`/**
-  * $${pagedesc}
-  */
-  `: ''}
-
-  export { default } from "@/views/${pagename}/index.vue"
+ ${
+   pagedesc
+     ? `/**
+  * ${pagedesc}
+  */`
+     : ''
+ }
+  export { default } from "@/views/${pagename}${fileEnd}"
 </script>`
   },
   {
-    filename: `views/${pagename}/index.vue`,
+    filename: `views/${pagename}${fileEnd}`,
     content: `<template>
   <div class="${className}"></div>
 </template>
@@ -45,6 +51,27 @@ export default {
 
 <style lang="less">
 </style>`
+  },
+  {
+    filename: `../test/unit/spec/${pagename}.spec.js`,
+    content: `
+import { createTest, destroyVM } from '../util';
+import ${pagename} from '../../../src/views/${pagename}/index.vue';
+describe('${pagename}', () => {
+  let vm;
+
+  afterEach(() => {
+    destroyVM(vm);
+  });
+
+  it('create', () => {
+    vm = createTest(${pagename}, true);
+
+    expect(vm.$el).to.exist;
+  });
+  
+});
+`
   }
 ]
 
