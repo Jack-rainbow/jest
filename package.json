@@ -46,8 +46,8 @@
     "jest-serializer-vue": "^2.0.2",
     "js-cookie": "^2.2.0",
     "less": "^3.9.0",
-    "less-loader": "^4.1.0",
-    "nuxt": "^2.3.2",
+    "less-loader": "^11.1.0",
+    "nuxt": "^3.0.0",
     "vue-jest": "^3.0.4"
   },
   "devDependencies": {
@@ -57,7 +57,7 @@
     "cross-env": "^5.1.3",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-vue": "^4.0.0",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.0",
